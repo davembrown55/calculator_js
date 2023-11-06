@@ -8,10 +8,18 @@ let operator;
 let numberTwo;
 let result;
 
-const add =  (numberOne, numberTwo) =>  numberOne + numberTwo;
-const subtract =  (numberOne, numberTwo) =>  numberOne - numberTwo;
-const multiply =  (numberOne, numberTwo) =>  numberOne * numberTwo;
-const divide =  (numberOne, numberTwo) =>  numberOne / numberTwo;
+const add =  (numOne, numTwo) =>  numOne + numTwo;
+const subtract =  (numOne, numTwo) =>  numOne - numTwo;
+const multiply =  (numOne, numTwo) =>  numOne * numTwo;
+const divide =  (numOne, numTwo) =>  numOne / numTwo;
+
+const operate = (operator, num1, num2) => operator(num1, num2);
+
+console.log(operate(add, 10, 12));
+console.log(operate(subtract, 10, 12));
+console.log(operate(multiply, 10, 12));
+console.log(operate(divide, 20, 5));
+
 
 // console.log(add(1,5));
 // console.log(add(10,50));

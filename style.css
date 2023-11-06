@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.info_area {
+    padding: 10px 0; 
+}
+.calc_area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.calculator {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+.display {
+    background-color: moccasin;
+    border-radius: 3px;
+    padding: 8px;
+}
+.button_area {
+    padding: 6px 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 3px;
+    /* grid-template-columns: repeat(6, 1fr); */
+}
+.equalBtnArea{
+    display: flex;
+
+}
+#equals {
+    flex-basis: 75%;
+}
+#blank3 {
+    flex-basis: 25%;
+}
