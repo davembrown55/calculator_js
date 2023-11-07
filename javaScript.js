@@ -1,9 +1,13 @@
-// add
-// subtract
-// multiply
-// divide
+const calcDisplay = document.querySelector('#display');
 
-let numberOne;
+// const calcDisplay = document.querySelector('#display');
+// const calcDisplay = document.querySelector('#display');
+// const calcDisplay = document.querySelector('#display');
+// const calcDisplay = document.querySelector('#display');
+
+// calcDisplay.innerHTML = 'change me';
+
+let numberOne = "";
 let operator;
 let numberTwo;
 let result;
@@ -19,6 +23,28 @@ console.log(operate(add, 10, 12));
 console.log(operate(subtract, 10, 12));
 console.log(operate(multiply, 10, 12));
 console.log(operate(divide, 20, 5));
+console.log(operator);
+
+
+const storeVal = function (val) {
+    if (typeof operator === 'undefined' || operator === null) {
+        // console.log(`winnets! ${val}` );
+        // parseInt(val, 10);
+        numberOne += val;
+        calcDisplay.innerHTML = `${numberOne}`;
+    }
+    
+};
+
+const resetDisp = function() {
+    numberOne = "0";
+    numberTwo = "0";
+    operator = null;
+    result = "0"
+    calcDisplay.innerHTML = `${numberOne}`;
+}
+
+
 
 
 // console.log(add(1,5));
