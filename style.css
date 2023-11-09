@@ -15,7 +15,7 @@
     
 }
 .info_area {
-    padding: 10px 0 132px 0; 
+    padding: 24px 0 128px 0; 
     font-family: 'LCD2', sans-serif;
     letter-spacing: 4px;
     font-size: 24px;
@@ -51,12 +51,33 @@
 
 }
 
-#display {
+.display-area {
+    display: flex;
+    flex-direction: column;
+
     background-color: moccasin;
     border-radius: 4px;
     padding: 8px;
     border: 2px solid darkslateblue;
-    font-family: 'LCD2', sans-serif;
+    font-family: 'LCD2', sans-serif;  
+
+    
+
+    width: 450px; 
+    align-self: center; 
+    flex-grow: 0; 
+    flex-shrink: 0; 
+}
+
+#smaller-display {
+    color: moccasin;
+    font-size: 24px;
+    padding: 0 0 6px 0;
+    text-align: right;
+    float: right;
+}
+
+#main-display {
     font-size: 48px;
     font-weight: 500;
     letter-spacing: 2px;
@@ -64,11 +85,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
-    width: 450px; 
-    align-self: center; 
-    flex-grow: 0; 
-    flex-shrink: 0; 
 }
 
 .button_area {
@@ -104,22 +120,6 @@
     font-size: 24px;
 }
 button {
-    /* padding: 16px;
-    border-radius: 6px;
-    font-size: 18px;
-    font-family: Arial, Helvetica, sans-serif;
-    border: 1px solid darkgray;
-    color: darkslategray;
-    font-weight: 600;
-
-    box-shadow: 
-    0px 2px 3px rgba(0, 0, 0, 0.2),  
-    0px 4px 8px rgba(0, 0, 0, 0.3), 
-    inset 2px 1px 2px rgba(255, 255, 255, 0.5);
-
-    transform: translateZ(20px);
-
-    background: linear-gradient(to bottom, hsl(195, 10%, 92%) 0%, #b9c3ca 100%); */
     padding: 16px;
     border-radius: 6px;
     font-size: 18px;
@@ -133,14 +133,14 @@ button {
         inset 2px 1px 2px rgba(255, 255, 255, 0.5);
     transform: translateZ(20px);
     background: linear-gradient(to bottom, hsl(195, 10%, 92%) 0%, #b9c3ca 100%);
-    transition: box-shadow 0.1s ease, transform 0.1s ease, background 0.1s ease; /* Smooth transition for button press */
+    /* transition: box-shadow 3s ease-in-out, transform 3s ease-in-out, background-color 3s ease-in-out, background-position 3s ease-in-out; */
+    transition: box-shadow 0.5s ease, transform 0.5s ease, background-color 0.5s ease, background-position 0.5s ease;
 
 }
 button:active {
     box-shadow: 
-        0px 1px 2px rgba(0, 0, 0, 0.2), /* Smaller shadow to look like the button is down */
-        inset 0px 1px 1px rgba(0, 0, 0, 0.3); /* Inner shadow to give depth */
-    transform: translateZ(10px); /* Button moves down */
-    background: linear-gradient(to bottom, hsl(195, 10%, 85%) 0%, #a1acb4 100%); /* Darker gradient for "pressed" effect */
-
+        0px 1px 2px rgba(0, 0, 0, 0.2), 
+        inset 0px 1px 1px rgba(0, 0, 0, 0.3); /
+    transform: translateZ(10px); 
+    background: linear-gradient(to bottom, hsl(195, 10%, 85%) 0%, #a1acb4 100%); 
 }
