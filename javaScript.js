@@ -28,6 +28,7 @@ let operator = null;
 let numberTwo = "";
 let result = "";
 let workingOut = "";
+let error = "Error!";
 
 const add =  (numOne, numTwo) =>  numOne + numTwo;
 const subtract =  (numOne, numTwo) =>  numOne - numTwo;
@@ -41,6 +42,7 @@ const operate = function (operator, numOne, numTwo) {
         case "-":
             return subtract(Number(numOne), Number(numTwo)); 
         case "/":
+            if(Number(numTwo) === 0) { return 'error'}
             return divide(Number(numOne), Number(numTwo));  
         case "x":
             return multiply(Number(numOne), Number(numTwo));     
@@ -74,11 +76,21 @@ const storeVal = function (val) {
         }        
     }    
 };
-
+// GO THROUGH THIS WITH SOME FRESH EYES. 
+// sort out the divide by zero thing
 const storeOperator = (op) => {
-    textRight();
-    operator = op;
-    if(result !== "") {
+    textRight();    
+
+    // if 2 sets of numbers already entered, calculate those. 
+    //Then get entered operator ready for next calculation.
+    if(numberTwo !== "") { 
+        getResult();
+        operator = op;
+        resetDisp();
+    }
+    if(numberTwo === "") {operator = op;} // numOne entered only. 
+    if (numberOne !== "" && operator !== "" && numberTwo == "") {return;} // num2 empty, num1 and operator have values. do nothing
+    if(result !== "") { // if prev calculation still exists
         workingOut = `${result} ${operator}`;
         numberOne = result;
     } else if (result === ""){
@@ -88,17 +100,20 @@ const storeOperator = (op) => {
     updatesmallDisplay(workingOut);
 };
 
-// what happens to small screen when equals is pressed / when C is pressed
+
+
 
 const resetVars = (val) => {
     if (val === 'C') {
-
         resetDisp();
         resetSmallDisplay();
     } else if(val !== 'C' && result.toString().length >= 10 ){
         textLeft(); 
         calcDisplay.innerHTML = `${result}`;
-    } else {
+    } else if (result === 'error'){
+        updateDisplay(error);
+        result = "";
+     } else {
         calcDisplay.innerHTML = `${result}`;
     }
     numberOne = "";
@@ -106,19 +121,18 @@ const resetVars = (val) => {
     operator = null;
 }    
 
-
-
 const getResult = function () {    
     if(operator === null && numberOne == "") {return;};    // if no values stored: do nothing. 
     if(operator === null && numberOne !== "") { // if only num 1 entered.    
         calcDisplay.innerHTML = `${numberOne}`
         return;
     };  
-    if (workingOut.includes('=')) { // if result already worked out
+    if (workingOut.includes('=')) { // if '=' pressed twice
         resetSmallDisplay();
         resetVars();
-    } else if (!workingOut.includes('=')) { // all the rest
+    } else if (!workingOut.includes('=') && numberTwo !== "") { // ready to get calculate
         result = operate(operator, numberOne, numberTwo);
+        
         workingOut += (` ${numberTwo} =`);
         updatesmallDisplay(workingOut);
         resetVars();

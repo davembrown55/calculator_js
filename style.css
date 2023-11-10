@@ -132,15 +132,52 @@ button {
         0px 4px 8px rgba(0, 0, 0, 0.3), /* Outer shadow */
         inset 2px 1px 2px rgba(255, 255, 255, 0.5);
     transform: translateZ(20px);
-    background: linear-gradient(to bottom, hsl(195, 10%, 92%) 0%, #b9c3ca 100%);
+    /* background: linear-gradient(to bottom, hsl(195, 10%, 92%) 0%, #b9c3ca 100%); */
     /* transition: box-shadow 3s ease-in-out, transform 3s ease-in-out, background-color 3s ease-in-out, background-position 3s ease-in-out; */
-    transition: box-shadow 0.5s ease, transform 0.5s ease, background-color 0.5s ease, background-position 0.5s ease;
+    /* transition: box-shadow 0.5s ease, transform 0.5s ease, background-color 0.5s ease, background-position 0.5s ease; */
 
-}
-button:active {
+
+
+
+    /* ... other styles ... */
+    background-color: #b9c3ca; /* Use the lighter color as the base */
+    transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+    position: relative; /* Needed for pseudo-element positioning */
+    overflow: hidden; /* Make sure the pseudo-element is clipped to the button's border-radius */
+    z-index: 0; /* Ensure the stacking context starts here */
+    }
+      
+      button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        background: linear-gradient(to bottom, hsl(195, 10%, 92%) 0%, #b9c3ca 100%);
+        border-radius: inherit; /* Match the border-radius of the button */
+        transition: opacity 0.3s ease; /* Transition the opacity */
+        opacity: 1; /* Start fully visible */
+      }
+      
+      button:active::before {
+        opacity: 0; /* Hide the gradient overlay */
+      }
+      
+      button:active {
+        background-color: #a1acb4; /* Change the background-color to the darker color when pressed */
+        /* ... other active styles ... */
+      }
+      
+
+
+
+/* } */
+/* button:active {
     box-shadow: 
         0px 1px 2px rgba(0, 0, 0, 0.2), 
-        inset 0px 1px 1px rgba(0, 0, 0, 0.3); /
+        inset 0px 1px 1px rgba(0, 0, 0, 0.3); 
     transform: translateZ(10px); 
     background: linear-gradient(to bottom, hsl(195, 10%, 85%) 0%, #a1acb4 100%); 
-}
+} */
