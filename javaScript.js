@@ -22,6 +22,10 @@ const resetSmallDisplay = () => {
     updateDisplay('0');
 }
 
+const buttonPressStyling = (buttonID) => {
+    buttonID.style.fontSize = "50px";
+}
+
 textRight();
 let numberOne = "";
 let operator = null;
@@ -29,6 +33,63 @@ let numberTwo = "";
 let result = "";
 let workingOut = "";
 let error = "Error!";
+
+const keyVals = {
+    numbers: {'1':'one' , '2': 'two','3':'three','4':'four', '5': 'five',
+    '6': 'six','7':'seven','8':'eight','9':'nine','0':'zero','.':'dec'},
+    operators: ['/','*', '-', '+'],
+
+    numbers: ['1','2','3','4','5','6','7','8','9','0', '.'],
+    operators: ['/','*', '-', '+'],
+
+} 
+
+
+// playing with keyboard events
+document.addEventListener('keydown', (event) => {
+    var name = event.key;
+    var code = event.code;
+
+    let numVal = Object.keys(keyVal.numbers);
+
+    numVal.forEach((key) => {
+        if(numVal[key].includes(name)) {
+            //try and make sense of this !!! using this: https://www.freecodecamp.org/news/how-to-iterate-over-objects-in-javascript/
+        }
+    })
+
+    let keyID; // = document.querySelector('#smaller-display');
+
+
+
+    for(i of keyVals.numbers) {
+        if(i.includes(name)) {
+            storeVal(name);
+            keyID = document.querySelector(`#${name}`);
+            buttonPressStyling(keyID);
+        }
+    }
+    for(i of keyVals.operators) {
+        if(i.includes(name)) {
+            switch(name) {
+                case "+":
+                    storeOperator('+');       
+                case "-":
+                    storeOperator('-');  
+                case "/":
+                    storeOperator('/');    
+                case "*":
+                    storeOperator('x');       
+            }
+        }
+    }
+    if(name === 'Enter'){getResult();}
+    
+
+    // console.log(`name = ${name} code = ${code}`);
+
+  }, false);
+
 
 const add =  (numOne, numTwo) =>  numOne + numTwo;
 const subtract =  (numOne, numTwo) =>  numOne - numTwo;
@@ -76,10 +137,10 @@ const storeVal = function (val) {
         }        
     }    
 };
-// GO THROUGH THIS WITH SOME FRESH EYES. 
-// sort out the divide by zero thing
+
 const storeOperator = (op) => {
     textRight();    
+    if (numberOne !== "" && operator !== null && numberTwo == "") {return;} // num2 empty, num1 and operator already have values. do nothing
 
     // if 2 sets of numbers already entered, calculate those. 
     //Then get entered operator ready for next calculation.
@@ -88,8 +149,8 @@ const storeOperator = (op) => {
         operator = op;
         resetDisp();
     }
-    if(numberTwo === "") {operator = op;} // numOne entered only. 
-    if (numberOne !== "" && operator !== "" && numberTwo == "") {return;} // num2 empty, num1 and operator have values. do nothing
+  
+    if(numberTwo === "") {operator = op;} // numOne entered only.     
     if(result !== "") { // if prev calculation still exists
         workingOut = `${result} ${operator}`;
         numberOne = result;
@@ -99,9 +160,6 @@ const storeOperator = (op) => {
     smallFontBlack();
     updatesmallDisplay(workingOut);
 };
-
-
-
 
 const resetVars = (val) => {
     if (val === 'C') {
