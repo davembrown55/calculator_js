@@ -22,7 +22,6 @@ const resetSmallDisplay = () => {
     updateDisplay('0');
 }
 
-
 const buttonPressStyling = (buttonID) => {
     buttonID.style.boxShadow = "0px 1px 2px rgba(0, 0, 0, 0.2), inset 0px 4px 8px rgba(0, 0, 0, 0.3) ";
     buttonID.style.transform = "translateZ(15px)";
@@ -43,12 +42,7 @@ let result = "";
 let workingOut = "";
 let error = "Error!";
 
-// const keyVals = {
-//     numbers: {'1':'one' , '2': 'two','3':'three','4':'four', '5': 'five',
-//     '6': 'six','7':'seven','8':'eight','9':'nine','0':'zero','.':'dec'},
 
-//     operators: {'/':'divide', '*':'multiply', '-':'subtract', '+':'add' },
-// } 
 
 const buttons = {
     one: document.querySelector('#one'),
@@ -103,7 +97,10 @@ const storeVal = function (val) {
         if(val === "." && numberOne.includes('.')){ // already decimal? do nothing
             updateDisplay(numberOne);
             return;
-        } else {
+        } else if (val === '.' && numberOne === ""){  
+            numberOne += `0${val}`
+            updateDisplay(numberOne);  
+        }else {
             numberOne += val;
             updateDisplay(numberOne);            
         }
@@ -111,7 +108,10 @@ const storeVal = function (val) {
         if(val === "." && numberTwo.includes('.')){
             updateDisplay(numberTwo);  
             return;
-        } else {
+        } else if (val === '.' && numberTwo === ""){  
+            numberTwo += `0${val}`
+            updateDisplay(numberTwo);  
+        } else {            
             numberTwo += val;
             updateDisplay(numberTwo);            
         }        
@@ -181,8 +181,6 @@ const getResult = function () {
 // Keyboard events 
 document.addEventListener('keydown', (event) => {
     let keyName = event.key;
-    var code = event.code;
-
     let keyID; 
 
     switch (event.key) {
