@@ -22,8 +22,17 @@ const resetSmallDisplay = () => {
     updateDisplay('0');
 }
 
+
 const buttonPressStyling = (buttonID) => {
-    buttonID.style.fontSize = "50px";
+    buttonID.style.boxShadow = "0px 1px 2px rgba(0, 0, 0, 0.2), inset 0px 4px 8px rgba(0, 0, 0, 0.3) ";
+    buttonID.style.transform = "translateZ(15px)";
+    buttonID.style.background = "linear-gradient(to bottom, hsl(195, 20%, 82%) 0%, #a9b3ba 100%) ";
+}
+
+const removeButtonPressStyling = (buttonID) => {
+    buttonID.style.boxShadow = null;
+    buttonID.style.transform = null;
+    buttonID.style.background = null;
 }
 
 textRight();
@@ -34,62 +43,32 @@ let result = "";
 let workingOut = "";
 let error = "Error!";
 
-const keyVals = {
-    numbers: {'1':'one' , '2': 'two','3':'three','4':'four', '5': 'five',
-    '6': 'six','7':'seven','8':'eight','9':'nine','0':'zero','.':'dec'},
-    operators: ['/','*', '-', '+'],
+// const keyVals = {
+//     numbers: {'1':'one' , '2': 'two','3':'three','4':'four', '5': 'five',
+//     '6': 'six','7':'seven','8':'eight','9':'nine','0':'zero','.':'dec'},
 
-    numbers: ['1','2','3','4','5','6','7','8','9','0', '.'],
-    operators: ['/','*', '-', '+'],
+//     operators: {'/':'divide', '*':'multiply', '-':'subtract', '+':'add' },
+// } 
 
-} 
-
-
-// playing with keyboard events
-document.addEventListener('keydown', (event) => {
-    var name = event.key;
-    var code = event.code;
-
-    let numVal = Object.keys(keyVal.numbers);
-
-    numVal.forEach((key) => {
-        if(numVal[key].includes(name)) {
-            //try and make sense of this !!! using this: https://www.freecodecamp.org/news/how-to-iterate-over-objects-in-javascript/
-        }
-    })
-
-    let keyID; // = document.querySelector('#smaller-display');
-
-
-
-    for(i of keyVals.numbers) {
-        if(i.includes(name)) {
-            storeVal(name);
-            keyID = document.querySelector(`#${name}`);
-            buttonPressStyling(keyID);
-        }
-    }
-    for(i of keyVals.operators) {
-        if(i.includes(name)) {
-            switch(name) {
-                case "+":
-                    storeOperator('+');       
-                case "-":
-                    storeOperator('-');  
-                case "/":
-                    storeOperator('/');    
-                case "*":
-                    storeOperator('x');       
-            }
-        }
-    }
-    if(name === 'Enter'){getResult();}
-    
-
-    // console.log(`name = ${name} code = ${code}`);
-
-  }, false);
-
+const buttons = {
+    one: document.querySelector('#one'),
+    two: document.querySelector('#two'),
+    three: document.querySelector('#three'),
+    four: document.querySelector('#four'),
+    five: document.querySelector('#five'),
+    six: document.querySelector('#six'),
+    seven: document.querySelector('#seven'),
+    eight: document.querySelector('#eight'),
+    nine: document.querySelector('#nine'),
+    dec: document.querySelector('#dec'),
+    zero: document.querySelector('#zero'),
+    divide:document.querySelector('#divide'),
+    multiply: document.querySelector('#multiply'),
+    subtract: document.querySelector('#subtract'),
+    add: document.querySelector('#add'),
+    cancel: document.querySelector('#C'),
+    equals: document.querySelector('#equals'),
+}
 
 const add =  (numOne, numTwo) =>  numOne + numTwo;
 const subtract =  (numOne, numTwo) =>  numOne - numTwo;
@@ -110,7 +89,6 @@ const operate = function (operator, numOne, numTwo) {
     }
 }
 
-// const decimal = (num) => num.includes('.');
 
 const updateDisplay = (number) => calcDisplay.innerHTML = `${number}`;
 const updatesmallDisplay = (workingsOut) => calcSmallDisplay.innerHTML = `${workingsOut}`;
@@ -123,6 +101,7 @@ const storeVal = function (val) {
         resetSmallDisplay();
 
         if(val === "." && numberOne.includes('.')){ // already decimal? do nothing
+            updateDisplay(numberOne);
             return;
         } else {
             numberOne += val;
@@ -130,6 +109,7 @@ const storeVal = function (val) {
         }
     } else{ 
         if(val === "." && numberTwo.includes('.')){
+            updateDisplay(numberTwo);  
             return;
         } else {
             numberTwo += val;
@@ -140,7 +120,8 @@ const storeVal = function (val) {
 
 const storeOperator = (op) => {
     textRight();    
-    if (numberOne !== "" && operator !== null && numberTwo == "") {return;} // num2 empty, num1 and operator already have values. do nothing
+    // num2 empty, num1 and operator already have values, or no values entered. do nothing
+    if (numberOne !== "" && operator !== null && numberTwo == "" || numberOne === "" && result === "") {return;} 
 
     // if 2 sets of numbers already entered, calculate those. 
     //Then get entered operator ready for next calculation.
@@ -148,8 +129,7 @@ const storeOperator = (op) => {
         getResult();
         operator = op;
         resetDisp();
-    }
-  
+    }  
     if(numberTwo === "") {operator = op;} // numOne entered only.     
     if(result !== "") { // if prev calculation still exists
         workingOut = `${result} ${operator}`;
@@ -165,6 +145,7 @@ const resetVars = (val) => {
     if (val === 'C') {
         resetDisp();
         resetSmallDisplay();
+        result = "";
     } else if(val !== 'C' && result.toString().length >= 10 ){
         textLeft(); 
         calcDisplay.innerHTML = `${result}`;
@@ -196,6 +177,228 @@ const getResult = function () {
         resetVars();
     }    
 }
+
+// Keyboard events 
+document.addEventListener('keydown', (event) => {
+    let keyName = event.key;
+    var code = event.code;
+
+    let keyID; 
+
+    switch (event.key) {
+        case '1':
+            keyID = buttons.one;
+            storeVal(keyName);
+            buttonPressStyling(keyID);
+            break;
+        case '2':
+            keyID = buttons.two;
+            storeVal(keyName);
+            buttonPressStyling(keyID);
+            break;
+        case '3':
+            keyID = buttons.three;
+            storeVal(keyName);
+            buttonPressStyling(keyID);
+            break;
+        case '4':
+            keyID = buttons.four;
+            storeVal(keyName);
+            buttonPressStyling(keyID);
+            break;
+        case '5':
+            keyID = buttons.five;
+            storeVal(keyName);
+            buttonPressStyling(keyID);
+            break;
+        case '6':
+            keyID = buttons.six;
+            storeVal(keyName);
+            buttonPressStyling(keyID);
+            break;
+        case '7':
+            keyID = buttons.seven;
+            storeVal(keyName);
+            buttonPressStyling(keyID);
+            break;
+        case '8':
+            keyID = buttons.eight;
+            storeVal(keyName);
+            buttonPressStyling(keyID);
+            break;
+        case '9':
+            keyID = buttons.nine;
+            storeVal(keyName);
+            buttonPressStyling(keyID);
+            break;
+        case '0':
+            keyID = buttons.zero;
+            storeVal(keyName);
+            buttonPressStyling(keyID);
+            break;
+        case '.':
+            keyID = buttons.dec;
+            storeVal(keyName);
+            buttonPressStyling(keyID);
+            break;
+        case '*':
+            keyID = buttons.multiply;
+            storeOperator('x');
+            buttonPressStyling(keyID);
+            break;
+        case '/':
+            keyID = buttons.divide;
+            storeOperator(keyName);
+            buttonPressStyling(keyID);
+            break;
+        case '-':
+            keyID = buttons.subtract;
+            storeOperator(keyName);
+            buttonPressStyling(keyID);
+            break;
+        case '+':
+            keyID = buttons.add;
+            storeOperator(keyName);
+            buttonPressStyling(keyID);
+            break;
+        case 'Enter':
+            keyID = buttons.equals;
+            getResult();
+            buttonPressStyling(keyID);
+            break;
+        case 'Delete':
+            keyID = buttons.cancel;
+            resetVars('C');
+            buttonPressStyling(keyID);
+            break;
+    }
+
+
+    // for(const i in keyVals.numbers) {
+    //     if(i.includes(name)) {
+    //         storeVal(name);
+    //         keyID = document.querySelector(`#${keyVals.numbers[i]}`);
+    //         buttonPressStyling(keyID);
+    //     }
+    // // }
+    // for(const i in keyVals.operators) {
+    //     if(i.includes(keyname)) {
+    //         if (keyame === '*') {storeOperator('x')}
+    //         else(storeOperator(keyname));
+    //         keyID = document.querySelector(`#${keyVals.operators[i]}`);
+    //         buttonPressStyling(keyID);
+    //     }      
+    // }
+    // if(keyname === 'Enter'){
+    //     getResult();
+    //     keyID = document.querySelector(`#equals`);
+    //         buttonPressStyling(keyID);
+    //     }
+    // if(keyname === 'Delete'){
+    //     resetVars('C')
+    //     keyID = document.querySelector(`#C`);
+    //         buttonPressStyling(keyID);            
+    //     }
+
+  });
+
+
+document.addEventListener('keyup', (event) => {
+    let keyID; 
+
+    switch (event.key) {
+        case '1':
+            keyID = buttons.one;
+            removeButtonPressStyling(keyID);
+            break;
+        case '2':
+            keyID = buttons.two;
+            removeButtonPressStyling(keyID);
+            break;
+        case '3':
+            keyID = buttons.three;
+            removeButtonPressStyling(keyID);
+            break;
+        case '4':
+            keyID = buttons.four;
+            removeButtonPressStyling(keyID);
+            break;
+        case '5':
+            keyID = buttons.five;
+            removeButtonPressStyling(keyID);
+            break;
+        case '6':
+            keyID = buttons.six;
+            removeButtonPressStyling(keyID);
+            break;
+        case '7':
+            keyID = buttons.seven;
+            removeButtonPressStyling(keyID);;
+            break;
+        case '8':
+            keyID = buttons.eight;
+            removeButtonPressStyling(keyID);
+            break;
+        case '9':
+            keyID = buttons.nine;
+            removeButtonPressStyling(keyID);
+            break;
+        case '0':
+            keyID = buttons.zero;
+            removeButtonPressStyling(keyID);
+            break;
+        case '.':
+            keyID = buttons.dec;
+            removeButtonPressStyling(keyID);
+            break;
+        case '*':
+            keyID = buttons.multiply;
+            removeButtonPressStyling(keyID);
+            break;
+        case '/':
+            keyID = buttons.divide;
+            removeButtonPressStyling(keyID);
+            break;
+        case '-':
+            keyID = buttons.subtract;
+            removeButtonPressStyling(keyID);
+            break;
+        case '+':
+            keyID = buttons.add;
+            removeButtonPressStyling(keyID);
+            break;
+        case 'Enter':
+            keyID = buttons.equals;
+            removeButtonPressStyling(keyID);
+            break;
+        case 'Delete':
+            keyID = buttons.cancel;
+            removeButtonPressStyling(keyID);
+            break;
+    }
+
+    // for(const i in keyVals.numbers) {
+    //     if(i.includes(name)) {
+    //         keyID = document.querySelector(`#${keyVals.numbers[i]}`);
+    //         removeButtonPressStyling(keyID);
+    //     }
+    // }
+    // for(const i in keyVals.operators) {
+    //     if(i.includes(name)) {            
+    //         keyID = document.querySelector(`#${keyVals.operators[i]}`);
+    //         removeButtonPressStyling(keyID);
+    //     }      
+    // }
+    // if(name === 'Enter'){
+    //     keyID = document.querySelector(`#equals`);
+    //     removeButtonPressStyling(keyID);
+    // }
+    // if(name === 'Delete'){
+    //     keyID = document.querySelector(`#C`);
+    //         removeButtonPressStyling(keyID);            
+    //     }
+});
+
 
 
 
