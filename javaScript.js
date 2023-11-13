@@ -274,32 +274,6 @@ document.addEventListener('keydown', (event) => {
     }
 
 
-    // for(const i in keyVals.numbers) {
-    //     if(i.includes(name)) {
-    //         storeVal(name);
-    //         keyID = document.querySelector(`#${keyVals.numbers[i]}`);
-    //         buttonPressStyling(keyID);
-    //     }
-    // // }
-    // for(const i in keyVals.operators) {
-    //     if(i.includes(keyname)) {
-    //         if (keyame === '*') {storeOperator('x')}
-    //         else(storeOperator(keyname));
-    //         keyID = document.querySelector(`#${keyVals.operators[i]}`);
-    //         buttonPressStyling(keyID);
-    //     }      
-    // }
-    // if(keyname === 'Enter'){
-    //     getResult();
-    //     keyID = document.querySelector(`#equals`);
-    //         buttonPressStyling(keyID);
-    //     }
-    // if(keyname === 'Delete'){
-    //     resetVars('C')
-    //     keyID = document.querySelector(`#C`);
-    //         buttonPressStyling(keyID);            
-    //     }
-
   });
 
 
@@ -377,26 +351,6 @@ document.addEventListener('keyup', (event) => {
             break;
     }
 
-    // for(const i in keyVals.numbers) {
-    //     if(i.includes(name)) {
-    //         keyID = document.querySelector(`#${keyVals.numbers[i]}`);
-    //         removeButtonPressStyling(keyID);
-    //     }
-    // }
-    // for(const i in keyVals.operators) {
-    //     if(i.includes(name)) {            
-    //         keyID = document.querySelector(`#${keyVals.operators[i]}`);
-    //         removeButtonPressStyling(keyID);
-    //     }      
-    // }
-    // if(name === 'Enter'){
-    //     keyID = document.querySelector(`#equals`);
-    //     removeButtonPressStyling(keyID);
-    // }
-    // if(name === 'Delete'){
-    //     keyID = document.querySelector(`#C`);
-    //         removeButtonPressStyling(keyID);            
-    //     }
 });
 
 
