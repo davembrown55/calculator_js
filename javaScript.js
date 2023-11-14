@@ -270,8 +270,6 @@ document.addEventListener('keydown', (event) => {
             buttonPressStyling(keyID);
             break;
     }
-
-
   });
 
 
